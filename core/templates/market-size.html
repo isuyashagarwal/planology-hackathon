@@ -1,0 +1,17 @@
+{% extends 'base-guest.html' %}
+{% block style %}
+{% endblock style %}
+{% block content %}
+<h1 class="text-center mt-3">Planology</h1>
+<hr>
+<div class="container mt-2" style="">
+    <div class="card">
+        <div class="card-header">
+            <div class="align-items-center">
+                <h3 class="mb-3 text-center">Market Size</h3>
+                <p class="text-left">{{market_size | safe}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

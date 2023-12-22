@@ -1,0 +1,86 @@
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+      <title>{{title}} - Jax</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/css/main.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='dist/css/utilities.css')}}">
+   </head>
+    <body>
+        <div class="h-100 d-flex justify-content-center align-items-center" style="margin-top: 250px;">
+            <div class="container">
+                <h2 style="font-weight: 700;font-size:70px;" class="text-center">Planology</h2>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="input-group mb-3" style="width: 100%;">
+                        <input type="text" class="form-control text-center" placeholder="What are you building?" id="idea_val" name="idea" aria-label="Enter text here" aria-describedby="submitbtn">
+                        <button class="btn btn-primary" type="button" id="submitbtn" onclick="send_data()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 20px;display: none;text-align: center;" id="loader">
+            <span id="changeText" class="text-center h2"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                <path d="M31 50A19 19 0 0 0 69 50A19 21 0 0 1 31 50" fill="#1c4595" stroke="none">
+                    <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 51;360 50 51"></animateTransform>
+                </path>
+            </svg>
+        </div>
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+        <script>
+            var text = ["Understanding Idea","Gathering Data","Understanding Problem Statement","Looking at Viability","Understanding target audience"];
+            var counter = 0;
+            var elem = document.getElementById("changeText");
+
+            function change() {
+                elem.innerHTML = text[counter];
+                counter++;
+                if (counter >= text.length) {
+                    counter = 0;
+                    // clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
+                }
+            }
+            
+            function send_data(){
+                // Get the input field value
+                change();
+                var inst = setInterval(change, 2000);
+                inputVal = document.getElementById('idea_val').value;
+                submit_btn = document.getElementById('submitbtn');
+                submit_btn.disabled = true;
+                loader = document.getElementById('loader');
+                loader.style.display = 'block';
+                // Send the input value as a POST request to the backend
+                $.ajax({
+                    url: '/process-input',
+                    type: 'POST',
+                    data: {'input': inputVal},
+                    success: function(response) {
+                        clearInterval(inst);
+                        submit_btn.disabled = false;
+                        loader.style.display = 'none';
+                        result = response['response']
+                        idea_id = response['data']
+                        // Handle the response from the backend
+                        console.log(idea_id);
+                        window.location.href = "/" + idea_id + "/overview";
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.log('Error: ' + error);
+                    }
+                });
+            }
+        </script>
+        <script src="{{url_for('static',filename='dist/js/main.js')}}"></script>
+        <script src="{{url_for('static',filename='dist/js/global/global.min.js')}}"></script>
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <!-- Toastr -->
+        <script src="{{url_for('static',filename='dist/js/toastr/js/toastr.min.js')}}"></script>
+
+        <!-- All init script -->
+        <script src="{{url_for('static',filename='dist/js/plugins-init/toastr-init.js')}}"></script>
+    </body>
+</html>

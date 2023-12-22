@@ -1,0 +1,47 @@
+{% extends 'base-guest.html' %}
+{% block style %}
+{% endblock style %}
+{% block content %}
+    <h1 class="text-center mt-3">Planology</h1>
+    <hr>
+    <div class="container" style="">
+        <div style="border: 2px solid;box-shadow: 5px 5px rgb(0,0,0);border-radius: 0.75rem;">
+            <h2 class="mt-2 mb-2 text-center">Business Model</h2>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-4">
+                <a href="{{url_for('product.value_proposition',idea_id=idea_id)}}">
+                    <div class="card" style="margin:10px;">
+                        <div class="card-header text-center">
+                            <div class="align-items-center">
+                                <h3>Value Proposition</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4">
+                <a href="{{url_for('product.pricing_strategy',idea_id=idea_id)}}">
+                    <div class="card" style="margin:10px;">
+                        <div class="card-header text-center">
+                            <div class="align-items-center">
+                                <h3>Pricing Strategy</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4">
+                <a href="{{url_for('product.go_to_market',idea_id=idea_id)}}">
+                    <div class="card" style="margin:10px;">
+                        <div class="card-header text-center">
+                            <div class="align-items-center">
+                                <h3>Go To Market Strategy</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

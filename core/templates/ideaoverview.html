@@ -1,0 +1,56 @@
+{% extends 'base-guest.html' %}
+{% block style %}
+{% endblock style %}
+{% block content %}
+    <h1 class="text-center mt-3">Planology</h1>
+    <hr>
+    <div class="container" style="">
+        <div class="card">
+            <div class="card-header text-center">
+                <div class="align-items-center">
+                    <h3 class="mb-3">Idea Overview</h3>
+                    <p><strong>{{one_line_idea}}</strong></p>
+                    <p>{{detailed_idea}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-4 mt-2 mb-2">
+                <a href="{{url_for('product.ideavalidation',idea_id=idea_id)}}">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <div class="align-items-center">
+                                <h3 class="mb-3">Idea Validation</h3>
+                                <p>Validate your idea, do market research.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 mt-2 mb-2">
+                <a href="{{url_for('product.business_model',idea_id=idea_id)}}">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <div class="align-items-center">
+                                <h3 class="mb-3">Business Model</h3>
+                                <p>Prepare a business model and GTM strategy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 mt-2 mb-2">
+                <a href="{{url_for('product.product_development',idea_id=idea_id)}}">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <div class="align-items-center">
+                                <h3 class="mb-3">Product Development</h3>
+                                <p>Plan and prepare your MVP. Prepare a roadmap.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
